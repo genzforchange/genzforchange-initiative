@@ -41,7 +41,7 @@ body {
   width: 100vw;
   margin: 0 auto;
   padding: 0;
-  background-color: var(--cream);
+  background-color: var(--blue);
   font-family: forma-djr-display, sans-serif;
   font-style: normal;
 }
@@ -383,7 +383,7 @@ header {
   align-items: center;
   gap: 21px;
   margin: 21px 0;
-  background-color: var(--red);
+  background-color: var(--cream);
 }
 
 .project-image{
@@ -392,6 +392,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 21px;
+  padding: 21px;
 }
 
 .project-image img{
@@ -401,12 +402,13 @@ header {
 }
 
 .project-description{
-  
+  width: 60vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 21px;
+  padding: 21px;
 }
 
 .project-description h1{
