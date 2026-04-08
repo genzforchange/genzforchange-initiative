@@ -121,11 +121,14 @@ a {
 
 header {
   width: 80vw;
-  padding: 25px 0 0 0;
+  padding: 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  background-color: var(--cream);
+  margin: 25px 0;
+  border-radius: 15px;
 }
 
 #logo-header {
