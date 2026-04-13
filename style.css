@@ -385,7 +385,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 80px;
-  padding: 50px 25px;
+  padding: 50px;
   background-color: var(--blue);
   border-radius: 15px;
 }
@@ -403,12 +403,12 @@ header {
 }
 
 .description h2 {
-  color: var(--blue);
+  color: var(--cream);
   padding-bottom: 10px;
 }
 
 .description p{
-  color: var(--blue);
+  color: var(--cream);
   padding-bottom: 10px;
 }
 
