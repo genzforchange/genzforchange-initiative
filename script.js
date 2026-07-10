@@ -468,3 +468,25 @@ const response = async (page) => {
 $("#menu-button").on("click", function() {
   $("#mobile-menu").toggle("display: block");
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all links on the page
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+        // Check if the link points to an external website
+        if (link.hostname && link.hostname !== window.location.hostname) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Stop immediate navigation
+
+                // Trigger the popup
+                const userConfirmed = window.confirm("You are leaving our site. Do you want to continue to " + link.href + "?");
+
+                // Navigate to the link if the user clicks "OK"
+                if (userConfirmed) {
+                    window.open(link.href, '_blank'); // Opens in a new tab
+                }
+            });
+        }
+    });
+});
