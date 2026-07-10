@@ -469,6 +469,8 @@ $("#menu-button").on("click", function() {
   $("#mobile-menu").toggle("display: block");
 })
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Select all links on the page
     const links = document.querySelectorAll('a');
@@ -480,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault(); // Stop immediate navigation
 
                 // Trigger the popup
-                const userConfirmed = window.confirm("You are leaving our site. Do you want to continue to " + link.href + "?");
+                const userConfirmed = window.confirm("are now leaving https://genzforchangeinitiative.org/");
 
                 // Navigate to the link if the user clicks "OK"
                 if (userConfirmed) {

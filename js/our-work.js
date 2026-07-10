@@ -101,6 +101,7 @@ async function loadInitiatives() {
     container.innerHTML = '';
     container.appendChild(frag);
     if (!container.children.length) container.textContent = 'No initiatives found.';
+    leaving();
   } catch (err) {
     console.error('Failed to load initiatives:', err);
     const msg = document.createElement('div');
@@ -115,13 +116,13 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadInitiatives);
 } else {
   loadInitiatives();
-  leaving();
+  
 }
 
 function leaving() {
     // Select all links on the page
     const links = document.querySelectorAll('a');
-
+    console.log(links)
     links.forEach(link => {
         // Check if the link points to an external website
         if (link.hostname && link.hostname !== window.location.hostname) {
@@ -139,3 +140,4 @@ function leaving() {
         }
     });
 };
+
