@@ -101,7 +101,6 @@ async function loadInitiatives() {
     container.innerHTML = '';
     container.appendChild(frag);
     if (!container.children.length) container.textContent = 'No initiatives found.';
-    leaving();
   } catch (err) {
     console.error('Failed to load initiatives:', err);
     const msg = document.createElement('div');
@@ -119,25 +118,6 @@ if (document.readyState === 'loading') {
   
 }
 
-function leaving() {
-    // Select all links on the page
-    const links = document.querySelectorAll('a');
-    console.log(links)
-    links.forEach(link => {
-        // Check if the link points to an external website
-        if (link.hostname && link.hostname !== window.location.hostname) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Stop immediate navigation
-
-                // Trigger the popup
-                const userConfirmed = window.confirm("You are now leaving https://genzforchangeinitiative.org/");
-
-                // Navigate to the link if the user clicks "OK"
-                if (userConfirmed) {
-                    window.open(link.href, '_blank'); // Opens in a new tab
-                }
-            });
-        }
-    });
-};
+// External link warnings are handled by the lightbox modal in script.js
+// (delegated document-level click handler covers dynamically added links).
 
