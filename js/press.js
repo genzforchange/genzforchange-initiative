@@ -162,7 +162,6 @@
         frag.appendChild(buildCard(item));
       }
       container.appendChild(frag);
-      leaving()
     } catch (err) {
       console.error("Failed to load press feed:", err);
       const msg = document.createElement("p");
