@@ -486,12 +486,14 @@ document.addEventListener('DOMContentLoaded', function() {
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
     dialog.setAttribute('aria-labelledby', 'exit-notice-title');
+    dialog.setAttribute('aria-describedby', 'exit-notice-message');
 
     const title = document.createElement('h2');
     title.id = 'exit-notice-title';
     title.textContent = 'You are leaving our site';
 
     const message = document.createElement('p');
+    message.id = 'exit-notice-message';
     message.textContent = 'You are now leaving genzforchangeinitiative.org. We are not responsible for the content of external websites.';
 
     const buttons = document.createElement('div');
@@ -547,10 +549,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target === overlay) closeModal();
     });
 
-    // Dismiss with Escape
+    // Dismiss with Escape; trap Tab focus inside the dialog while open
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && !overlay.hasAttribute('hidden')) {
+        if (overlay.hasAttribute('hidden')) return;
+
+        if (event.key === 'Escape') {
             closeModal();
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            // Only Cancel and Continue are focusable inside the dialog
+            const focusables = [cancelButton, continueLink];
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+
+            // If focus somehow left the dialog, pull it back in
+            if (!dialog.contains(document.activeElement)) {
+                event.preventDefault();
+                first.focus();
+                return;
+            }
+
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
         }
     });
 
