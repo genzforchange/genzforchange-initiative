@@ -471,24 +471,97 @@ $("#menu-button").on("click", function() {
 
 
 
+/* External link exit notice — in-page lightbox modal.
+   Unlike window.confirm()/window.open(), an HTML overlay cannot be
+   suppressed by popup blockers, so the notice always appears. */
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all links on the page
-    const links = document.querySelectorAll('a');
 
-    links.forEach(link => {
-        // Check if the link points to an external website
+    // Build the modal once and keep it in the DOM (hidden)
+    const overlay = document.createElement('div');
+    overlay.id = 'exit-notice-overlay';
+    overlay.setAttribute('hidden', '');
+
+    const dialog = document.createElement('div');
+    dialog.id = 'exit-notice-dialog';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-labelledby', 'exit-notice-title');
+
+    const title = document.createElement('h2');
+    title.id = 'exit-notice-title';
+    title.textContent = 'You are leaving our site';
+
+    const message = document.createElement('p');
+    message.textContent = 'You are now leaving genzforchangeinitiative.org. We are not responsible for the content of external websites.';
+
+    const buttons = document.createElement('div');
+    buttons.className = 'exit-notice-buttons';
+
+    // "Continue" is a real anchor — browsers treat a user's direct click on
+    // an <a target="_blank"> as a trusted gesture, so popup blockers allow it.
+    const continueLink = document.createElement('a');
+    continueLink.id = 'exit-notice-continue';
+    continueLink.target = '_blank';
+    continueLink.rel = 'noopener noreferrer';
+    continueLink.textContent = 'Continue';
+
+    const cancelButton = document.createElement('button');
+    cancelButton.id = 'exit-notice-cancel';
+    cancelButton.type = 'button';
+    cancelButton.textContent = 'Cancel';
+
+    buttons.append(cancelButton, continueLink);
+    dialog.append(title, message, buttons);
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    let lastFocused = null;
+
+    function openModal(url) {
+        continueLink.href = url;
+        lastFocused = document.activeElement;
+        overlay.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        cancelButton.focus();
+    }
+
+    function closeModal() {
+        overlay.setAttribute('hidden', '');
+        continueLink.removeAttribute('href');
+        document.body.style.overflow = '';
+        if (lastFocused && typeof lastFocused.focus === 'function') {
+            lastFocused.focus();
+        }
+    }
+
+    cancelButton.addEventListener('click', closeModal);
+
+    // Continue: let the anchor's native navigation happen, then close
+    continueLink.addEventListener('click', function() {
+        closeModal();
+    });
+
+    // Dismiss when clicking the dimmed backdrop (but not the dialog itself)
+    overlay.addEventListener('click', function(event) {
+        if (event.target === overlay) closeModal();
+    });
+
+    // Dismiss with Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !overlay.hasAttribute('hidden')) {
+            closeModal();
+        }
+    });
+
+    // Intercept clicks on any external link, including links added to the
+    // page later by scripts (event delegation on the document).
+    document.addEventListener('click', function(event) {
+        const link = event.target.closest('a');
+        if (!link || !link.href) return;
+        if (overlay.contains(link)) return; // ignore the modal's own Continue link
         if (link.hostname && link.hostname !== window.location.hostname) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Stop immediate navigation
-
-                // Trigger the popup
-                const userConfirmed = window.confirm("are now leaving https://genzforchangeinitiative.org/");
-
-                // Navigate to the link if the user clicks "OK"
-                if (userConfirmed) {
-                    window.open(link.href, '_blank'); // Opens in a new tab
-                }
-            });
+            event.preventDefault();
+            openModal(link.href);
         }
     });
 });

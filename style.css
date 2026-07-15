@@ -452,6 +452,90 @@ header {
   }
 }
 
+/* external link exit notice modal */
+
+#exit-notice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(35, 31, 32, 0.6);
+  padding: 20px;
+}
+
+#exit-notice-overlay[hidden] {
+  display: none;
+}
+
+#exit-notice-dialog {
+  background-color: var(--cream);
+  border-radius: 15px;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(35, 31, 32, 0.3);
+}
+
+#exit-notice-dialog h2 {
+  color: var(--blue);
+  font-weight: var(--extra-bold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+#exit-notice-dialog p {
+  color: var(--black);
+  margin-bottom: 24px;
+}
+
+.exit-notice-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+#exit-notice-continue,
+#exit-notice-cancel {
+  font-family: forma-djr-display, sans-serif;
+  text-transform: uppercase;
+  font-size: var(--h3-size);
+  font-weight: var(--bold);
+  letter-spacing: 1.5px;
+  border-radius: 100px;
+  padding: 10px 30px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#exit-notice-continue {
+  background-color: var(--blue);
+  color: var(--cream);
+  border: 2px solid var(--blue);
+}
+
+#exit-notice-continue:hover {
+  background-color: transparent;
+  color: var(--blue);
+  transition: .2s ease;
+}
+
+#exit-notice-cancel {
+  background-color: transparent;
+  color: var(--red);
+  border: 2px solid var(--red);
+}
+
+#exit-notice-cancel:hover {
+  background-color: var(--red);
+  color: var(--cream);
+  transition: .2s ease;
+}
+
 /* collaborators bar css */
 
 .collaborators-list img {
