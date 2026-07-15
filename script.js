@@ -148,11 +148,6 @@ let collaborators = [
     link: "https://athenaforall.org",
   },
   {
-    name: "Freedom For Immigrants",
-    photo: "ffi.png",
-    link: "http://freedomforimmigrants.org/",
-  },
-  {
     name: "Immirgant Legal Resource Center",
     photo: "ilrc.png",
     link: "https://www.ilrc.org/",
@@ -206,11 +201,6 @@ let collaborators = [
     name: "Writers Guild of America",
     photo: "wga.png",
     link: "https://www.wga.org",
-  },
-  {
-    name: "Young Democratic Socialists of American",
-    photo: "ydsa.png",
-    link: "https://y.dsausa.org",
   },
   {
     name: "Youth Power Project",
