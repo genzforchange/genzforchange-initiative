@@ -536,9 +536,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     cancelButton.addEventListener('click', closeModal);
 
-    // Continue: let the anchor's native navigation happen, then close
+    // Continue: let the anchor's native navigation happen first, then
+    // close the modal on the next tick so removing href can't cancel it
     continueLink.addEventListener('click', function() {
-        closeModal();
+        setTimeout(closeModal, 0);
     });
 
     // Dismiss when clicking the dimmed backdrop (but not the dialog itself)
