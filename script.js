@@ -453,8 +453,47 @@ const response = async (page) => {
 //   });
 // });
 
-$("#menu-button").on("click", function () {
-  $("#mobile-menu").toggle("display: block");
+/* Mobile navigation menu: open/close toggle with a close button,
+   closes on link tap or Escape, and locks page scroll while open. */
+$(function () {
+  const $menu = $("#mobile-menu");
+  const $button = $("#menu-button");
+  if (!$menu.length || !$button.length) return;
+
+  // Add a close ("X") button into the empty .mobile-header on every page
+  const $close = $(
+    '<button type="button" id="mobile-menu-close" aria-label="Close menu">&times;</button>'
+  );
+  $menu.find(".mobile-header").append($close);
+
+  $button.attr({ role: "button", tabindex: "0", "aria-expanded": "false" });
+
+  function openMenu() {
+    $menu.css("display", "block");
+    $button.attr("aria-expanded", "true");
+    $("body").css("overflow", "hidden");
+  }
+
+  function closeMenu() {
+    $menu.css("display", "none");
+    $button.attr("aria-expanded", "false");
+    $("body").css("overflow", "");
+  }
+
+  $button.on("click", function () {
+    if ($menu.is(":visible")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  $close.on("click", closeMenu);
+  $menu.find(".nav-mobile a").on("click", closeMenu);
+
+  $(document).on("keydown", function (event) {
+    if (event.key === "Escape" && $menu.is(":visible")) closeMenu();
+  });
 });
 
 /* External link exit notice — in-page lightbox modal.

@@ -393,7 +393,7 @@ header {
 
 .workflow-item img {
   height: auto;
-  width: clamp(300px, 40vw, 640px);
+  width: clamp(min(300px, 100%), 40vw, 640px);
   max-width: 100%;
   object-fit: contain;
   padding: 10px 0;
@@ -823,6 +823,41 @@ footer {
   .heading {
     font-size: 2rem;
   }
+
+  :root {
+    --h1-size: 26px;
+    --h2-size: 21px;
+  }
+
+  header {
+    box-sizing: border-box;
+    width: 90vw;
+    padding: 18px 24px;
+    margin: 15px 0;
+  }
+
+  .cover-text-home {
+    width: 88vw;
+    margin: 60px auto;
+  }
+
+  .title-bar h1 {
+    padding: 0 24px;
+  }
+
+  .workflow-item {
+    padding: 25px 20px;
+  }
+
+  #nav-footer a,
+  .footer-nav a {
+    padding: 8px 0;
+    display: inline-block;
+  }
+
+  #exit-notice-dialog {
+    padding: 28px 20px;
+  }
 }
 
 .sticker {
@@ -879,11 +914,33 @@ footer {
     height: 100vh;
     background-color: var(--cream);
     width: 100vw;
-    position: absolute;
+    position: fixed;
     inset-inline-start: 0;
     inset-block-start: 0;
     display: none;
-    z-index: 5;
+    z-index: 20;
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 25px 0;
+  }
+
+  #mobile-menu-close {
+    background: none;
+    border: none;
+    color: var(--blue);
+    font-size: 44px;
+    line-height: 1;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .nav-mobile a {
+    padding: 10px 20px;
   }
 
   .nav-mobile {
@@ -892,7 +949,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 30px;
-    height: 100%;
+    height: calc(100% - 68px);
   }
 
   .nav-mobile a {
