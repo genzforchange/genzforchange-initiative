@@ -441,7 +441,7 @@ header {
   .workflow-item.reverse {
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px 0;
+    padding: 25px 20px;
     gap: 20px;
   }
 
@@ -449,6 +449,7 @@ header {
     width: 100%;
     max-width: none;
     padding: 0;
+    border-radius: 8px;
   }
 }
 
@@ -681,6 +682,33 @@ footer {
 #nav-footer a:hover {
   color: var(--blue);
   transition: color 0.2s;
+}
+
+/* footer flattens into a centered vertical stack on small screens */
+@media (max-width: 700px) {
+  footer {
+    box-sizing: border-box;
+    margin: 15px;
+    padding: 20px 16px;
+  }
+
+  .footer-nav {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #icon-footer {
+    height: 72px;
+  }
+
+  #nav-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+    margin-bottom: 0;
+  }
 }
 
 .copyright {
@@ -1050,18 +1078,6 @@ footer {
 
   .title-bar {
     width: 100vw;
-  }
-
-  .footer-nav {
-    flex-direction: row-reverse;
-    gap: 13px;
-  }
-
-  #nav-footer {
-    flex-direction: column;
-    gap: 3px;
-    text-align: right;
-    margin-bottom: 55px;
   }
 
   #landing-initiatives {
